@@ -10,10 +10,29 @@ function App() {
   const [contacts, setContacts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [search,setSearch]=useState("");
+  const [editingContact, setEditingContact] = useState(null);
 
   const addContact=(contact) => {
-    setContacts([...contacts,contact]);
+    if(editingContact) {
+      // Mode édition : mettre à jour le contact existant
+      const updatedContacts = [...contacts];
+      updatedContacts[editingContact.index] = contact;
+      setContacts(updatedContacts);
+      setEditingContact(null);
+    } else {
+      // Mode ajout : ajouter un nouveau contact
+      setContacts([...contacts,contact]);
+    }
     setShowForm(false); 
+  };
+
+  const deleteContact = (index) => {
+    setContacts(contacts.filter((_, i) => i !== index));
+  };
+
+  const editContact = (contact, index) => {
+    setEditingContact({contact, index});
+    setShowForm(true);
   };
   const searchedcontacts = contacts.filter((contact) =>
     contact.nom.toLowerCase().includes(search.toLowerCase())
@@ -31,12 +50,12 @@ function App() {
       </div>
 
        <div className="flex justify-center mt-12">
-        <Contactlist contactlist={search ? searchedcontacts : contacts} />
+        <Contactlist contactlist={search ? searchedcontacts : contacts} deleteContact={deleteContact} editContact={editContact} />
       </div>
 
           {showForm ? (
       <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-            <Contactform addContact={addContact} setShowForm={setShowForm} />
+            <Contactform addContact={addContact} setShowForm={setShowForm} editingContact={editingContact} />
       </div>
             ):""}
       

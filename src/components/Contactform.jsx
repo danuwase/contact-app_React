@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 
-function Contactform({ addContact, setShowForm }){
+function Contactform({ addContact, setShowForm, editingContact }){
 
-    const [newContact, setNewContact] = useState({
+    const [newContact, setNewContact] = useState(editingContact?.contact || {
         nom: "",
         email: "",
         phone: "",
@@ -14,6 +14,9 @@ function Contactform({ addContact, setShowForm }){
         <>
         <div className="text-gray-400 w-[40%] h-[350px]">
             <form action="" className="bg-white flex-rows justify-center border-2 border-gray-300 shadow-lg shadow-[#51038C] pt-[20px] rounded-[30px] h-[100%] text-center relative">
+                <h2 className="text-[#51038C] font-bold mb-[15px]">
+                    {editingContact ? "Modifier le contact" : "Ajouter un nouveau contact"}
+                </h2>
 
                 <input type="text" placeholder="Nom" value={newContact.nom} required
                     onChange={(e) => setNewContact({...newContact, nom: e.target.value})} 
@@ -36,7 +39,7 @@ function Contactform({ addContact, setShowForm }){
                         addContact(newContact);
                         setNewContact({ nom: "", phone: "", email: "", addresse: "" });}}
                         className="px-[50px] py-[10px] mt-[15px] rounded-[25px] bg-gray-200 hover:bg-[#9105fa] hover:shadow-md hover:shadow-gray-800 text-[#9105fa] hover:text-white  "
-                        > Enregistrer
+                        > {editingContact ? "Mettre à jour" : "Enregistrer"}
                     </button>
                     <button type='button'
                         onClick={()=>setShowForm(false)}
