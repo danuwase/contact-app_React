@@ -1,7 +1,7 @@
 import React from "react";
 import avatar_profile from "../assets/avatar_profile.jpeg";
 import delete_icon from "../assets/delete-symbol.png";
-import edit_icon from "../assets/edit-user.png"
+import edit_icon from "../assets/profile.png"
 
 
 function Contactcard({ contact, index, deleteContact, editContact }) {
