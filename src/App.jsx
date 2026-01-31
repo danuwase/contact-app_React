@@ -7,24 +7,31 @@ import Footer from './components/Footer'
 import './App.css'
 
 function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const saved = localStorage.getItem('contacts');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showForm, setShowForm] = useState(false);
   const [search,setSearch]=useState("");
   const [editingContact, setEditingContact] = useState(null);
 
-  const addContact=(contact) => {
-    if(editingContact) {
+  const addContact = (contact) => {
+    if (editingContact) {
       // Mode édition : mettre à jour le contact existant
-      const updatedContacts = [...contacts];
-      updatedContacts[editingContact.index] = contact;
-      setContacts(updatedContacts);
+      setContacts((currentContacts) => {
+        const updatedContacts = [...currentContacts];
+        updatedContacts[editingContact.index] = contact;
+        return updatedContacts;
+      });
       setEditingContact(null);
     } else {
       // Mode ajout : ajouter un nouveau contact
-      setContacts([...contacts,contact]);
+      setContacts((currentContacts) => [...currentContacts, contact]);
     }
-    setShowForm(false); 
+    setShowForm(false);
   };
+
+  
 
   const deleteContact = (index) => {
     setContacts(contacts.filter((_, i) => i !== index));
@@ -35,7 +42,8 @@ function App() {
     setShowForm(true);
   };
   const searchedcontacts = contacts.filter((contact) =>
-    contact.nom.toLowerCase().includes(search.toLowerCase())
+  `${contact.nom} ${contact.email} ${contact.addresse} ${contact.phone} `
+  .toLowerCase().includes(search.toLowerCase())
   );
 
   return (
