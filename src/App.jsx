@@ -48,16 +48,17 @@ function App() {
       <div>
         <Searchbar search={search} setSearch={setSearch} />
       </div>
-
-       <div className="flex justify-center mt-12">
-        <Contactlist contactlist={search ? searchedcontacts : contacts} deleteContact={deleteContact} editContact={editContact} />
-      </div>
-
+      
           {showForm ? (
       <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
             <Contactform addContact={addContact} setShowForm={setShowForm} editingContact={editingContact} />
       </div>
             ):""}
+
+       <div className="flex justify-center mt-12">
+        <Contactlist contactlist={search ? searchedcontacts : contacts} deleteContact={deleteContact} editContact={editContact} />
+      </div>
+
       
 
       <div className="fixed bottom-0 w-full flex justify-center">

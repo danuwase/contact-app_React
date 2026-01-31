@@ -12,7 +12,7 @@ function Contactform({ addContact, setShowForm, editingContact }){
 
     return(
         <>
-        <div className="text-gray-400 w-[40%] h-[350px]">
+        <div className="text-gray-400 w-[40%] h-[400px]">
             <form action="" className="bg-white flex-rows justify-center border-2 border-gray-300 shadow-lg shadow-[#51038C] pt-[20px] rounded-[30px] h-[100%] text-center relative">
                 <h2 className="text-[#51038C] font-bold mb-[15px]">
                     {editingContact ? "Modifier le contact" : "Ajouter un nouveau contact"}
